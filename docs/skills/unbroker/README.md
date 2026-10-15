@@ -29,7 +29,7 @@ fallback**. Scope is **US-first**, with EU/UK (GDPR) and global coverage on the 
 The design is **Hermes-native**: a small deterministic Python CLI (`scripts/pdd.py`) owns the state
 (config, dossiers, broker DB, tier planning, ledger, drafts, reports), while the agent does the
 scanning and submitting with native tools (`web_extract`, `browser_*`, email, `cronjob`,
-`delegate_task`). [`SKILL.md`](SKILL.md) is the authoritative reference.
+`delegate_task`). [`SKILL.md`](../../../optional-skills/security/unbroker/SKILL.md) is the authoritative reference.
 
 ## Install
 
@@ -62,7 +62,7 @@ cloud browser if available, and encryption if `age` is installed), records your 
 the autonomous queue: scan, opt out (parents first), send and verify emails, schedule re-checks. You
 hear from it twice: at intake, and with one digest of anything only a human can do.
 
-The underlying CLI (run via `terminal`, as `python3 scripts/pdd.py <cmd>`):
+The underlying CLI (run from the installed skill directory via `terminal`, as `python3 scripts/pdd.py <cmd>`):
 
 | Command | Purpose |
 |---|---|
@@ -124,6 +124,8 @@ The underlying CLI (run via `terminal`, as `python3 scripts/pdd.py <cmd>`):
 
 85 hermetic tests (no network, browser, or email; SMTP and IMAP are exercised through injected
 fakes):
+
+Run from the repository root:
 
 ```bash
 scripts/run_tests.sh tests/skills/test_unbroker_skill.py           # CI-parity harness

@@ -5,21 +5,23 @@ without any setup; cloud integration tests need a Comfy Cloud API key.
 
 ## Running
 
+Run from the repository root through the canonical test runner:
+
 ```bash
-# Unit tests only (no network required) — runs in <1s
-python3 -m pytest tests/ -c tests/pytest.ini -o addopts="-p no:xdist"
+# Run this suite with the hermetic repository environment
+scripts/run_tests.sh tests/skills/comfyui/ -q
 
-# Including cloud integration tests
-COMFY_CLOUD_API_KEY="comfyui-..." python3 -m pytest tests/ \
-  -c tests/pytest.ini -o addopts="-p no:xdist"
+# Explicitly select this suite's pytest configuration
+scripts/run_tests.sh tests/skills/comfyui/ \
+  -c tests/skills/comfyui/pytest.ini -q
 
-# Just cloud tests
-COMFY_CLOUD_API_KEY="comfyui-..." python3 -m pytest tests/test_cloud_integration.py \
-  -c tests/pytest.ini -o addopts="-p no:xdist" -v
+# Run one test file
+scripts/run_tests.sh tests/skills/comfyui/test_run_workflow.py -q
 ```
 
-The `-c` and `-o` overrides isolate this suite from any parent
-`pyproject.toml` pytest config (e.g. the `-n auto` from a parent repo).
+The runner clears credentials, so the cloud integration tests remain skipped
+during normal repository validation. The test fixtures read the production
+scripts and workflows from `skills/creative/comfyui/`.
 
 ## Test files
 
@@ -41,12 +43,10 @@ When you change a script:
 3. Workflow fixtures live in `conftest.py` (`sd15_workflow`, `flux_workflow`,
    `video_workflow`)
 
-## Why the explicit `-c` / `-o`?
+## Test configuration
 
-The parent hermes-agent repo used to enable `pytest-xdist` by default
-(`-n auto`); the canonical runner has since moved to per-file subprocess
-isolation via `scripts/run_tests_parallel.py` and no longer uses xdist.
-This suite is small enough that parallelism isn't worth the complexity, and
-pytest-xdist isn't always installed in the user's environment. The
-`-c tests/pytest.ini -o addopts="-p no:xdist"` flags make the suite run
-identically regardless of the parent project's config.
+The local `pytest.ini` registers the `cloud` marker and disables xdist.
+`scripts/run_tests.sh` supplies the hermetic environment and per-file subprocess
+isolation through `scripts/run_tests_parallel.py`. The runner discovers the local
+pytest configuration from the test path; pass `-c tests/skills/comfyui/pytest.ini`
+to make that selection explicit.
