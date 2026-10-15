@@ -1,5 +1,7 @@
 # p5.js Skill
 
+Skill source: [SKILL.md](../../../skills/creative/p5js/SKILL.md).
+
 Production pipeline for interactive and generative visual art using [p5.js](https://p5js.org/).
 
 ## What it does
@@ -36,15 +38,18 @@ A modern browser. That's it for basic use.
 
 For headless export: Node.js, Puppeteer, ffmpeg.
 
+Run from the repository root:
+
 ```bash
 bash skills/creative/p5js/scripts/setup.sh
 ```
 
 ## File Structure
 
+Installed files from `skills/creative/p5js/`:
+
 ```
 ├── SKILL.md                      # Modes, workflow, creative direction, critical notes
-├── README.md                     # This file
 ├── references/
 │   ├── core-api.md              # Canvas, draw loop, transforms, offscreen buffers, math
 │   ├── shapes-and-geometry.md   # Primitives, vertices, curves, vectors, SDFs, clipping

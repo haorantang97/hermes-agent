@@ -1,5 +1,7 @@
 # Manim Video Skill
 
+Skill source: [SKILL.md](../../../skills/creative/manim-video/SKILL.md).
+
 Production pipeline for mathematical and technical animations using [Manim Community Edition](https://www.manim.community/).
 
 ## What it does
@@ -17,6 +19,8 @@ Creates 3Blue1Brown-style animated videos from text prompts. The agent handles t
 ## Prerequisites
 
 Python 3.10+, Manim CE (`pip install manim`), LaTeX, ffmpeg.
+
+Run from the repository root:
 
 ```bash
 bash skills/creative/manim-video/scripts/setup.sh
